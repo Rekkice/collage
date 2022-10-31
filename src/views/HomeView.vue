@@ -1,23 +1,32 @@
 <script>
 import DropZone from '../components/DropZone.vue'
+import CurrentFiles from '../components/CurrentFiles.vue'
 export default {
+    emits: ["image-change"],
     data() {
         return {
             droppedFiles: Array(),
-            url: null
         }
     },
     components: {
         DropZone,
+        CurrentFiles,
     },
     methods: {
         gotFiles(files) {
             let filteredFiles = files.filter(file => file.type.includes('image'));
             this.droppedFiles = this.droppedFiles.concat(filteredFiles);
-            console.log("got files");
+            this.$emit("image-change", this.droppedFiles);
         },
-        getUrl(image) {
-            return URL.createObjectURL(image);
+        deleteImage(image) {
+            this.droppedFiles = this.droppedFiles.filter(x => x !== image);
+            this.$emit("image-change", this.droppedFiles);
+        },
+    },
+    computed: {
+        buttonIsDisabled() {
+            if (this.droppedFiles.length > 0) return false;
+            return true;
         },
     }
 }
@@ -25,46 +34,44 @@ export default {
 
 <style>
 .column {
-    height:80vh;
-}
-.current-files {
-    padding-left: 5px;
-    overflow-y: auto;
-}
-.image-name {
-    word-break: break-all;
-    margin: -10px 0 -20px 0;
-    color: rgb(252, 224, 224);
+    height: 85%;
+    margin-left: 10px;
 }
 
 .primary-text-color {
     color: rgb(122, 56, 56);
 }
+
+.box-button {
+    margin: 10px 0 0 0;
+    display: block;
+    width: 90%;
+}
+
 </style>
 
 <template>
 
-<div class="columns is-centered" style="width: 90vw">
+<div class="columns is-vcentered is-centered" style="margin: 0 auto; width: 90%;">
 
-    <DropZone class="column is-three-quarters" style="margin: 0 10px 0 0;" @file-dropped="(files) => gotFiles(files)">
-        <h1 class="is-size-1 has-text-centered has-text-weight-bold primary-text-color">
-            Drag and drop images here
-        </h1>
+    <DropZone class="column is-three-quarters is-flex is-flex-direction-column is-justify-content-space-between" 
+        @file-dropped="(files) => gotFiles(files)" style="margin-bottom: 0;">
+
+        <router-link
+        images="droppedFiles"
+        class="box-button"
+        to="/edit"
+        v-slot="{href, navigate}"
+        >
+            <button :href="href" @click="navigate" class='button is-full-width is-rounded' style="width: 100%" :disabled="buttonIsDisabled">
+                <p class="primary-text-color has-text-weight-semibold">Next</p>
+            </button>
+        </router-link>
+
     </DropZone>
 
-
-    <section class="panel current-files column is-one-quarter is-primary">
-        <h1 class="panel-heading is-size-3 has-text-centered" style="margin: -10px -10px 5px -10px;">Current files</h1>
-
-        <a class="panel-block" v-for="fileImage in droppedFiles">
-            <div class="notification is-primary" style="margin: -5px 0 -5px 0; max-height: 10%; width: 100%;">
-                <h1 class="image-name is-family-primary" style="margin: -20px 0 -20px 0;">
-                    {{fileImage.name}}
-                </h1><br>
-                <img :src="getUrl(fileImage)" width="50" height="50" style="margin: -5px 0 -20px 0;">
-            </div>
-        </a>
-    </section>
+    <CurrentFiles class="column is-one-quarter" :currentFiles="droppedFiles" @delete-button="(image) => deleteImage(image)"/>
+    
 </div>
 
 </template>

@@ -485,7 +485,7 @@ a.box:active {
 
 .button {
   background-color: white;
-  border-color: #dbdbdb;
+  border-color: rgb(122, 56, 56);
   border-width: 1px;
   color: #363636;
   cursor: pointer;
@@ -523,17 +523,17 @@ a.box:active {
 }
 
 .button:hover, .button.is-hovered {
-  border-color: #b5b5b5;
+  border-color: rgb(122, 56, 56);;
   color: #363636;
 }
 
 .button:focus, .button.is-focused {
-  border-color: #485fc7;
+  border-color: rgb(122, 56, 56);
   color: #363636;
 }
 
 .button:focus:not(:active), .button.is-focused:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(72, 95, 199, 0.25);
+  box-shadow: 0 0 0 0.125em rgba(122, 56, 56, 0.303);
 }
 
 .button:active, .button.is-active {
