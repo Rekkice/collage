@@ -7,3 +7,4 @@ Simple single-page app that receives the files dropped inside the window and mak
 - Add option to crop images while editing the canvas
 - Add options to border color, background color and size of downloaded canvas
 - Crop out empty space of canvas before downloading the file.
+- Use SASS for Bulma.
