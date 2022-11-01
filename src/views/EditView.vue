@@ -4,6 +4,8 @@ export default {
     data() {
         return {
             canvasBind: null,
+            canvas: null,
+            href: null,
         }
     },
     components: {
@@ -21,14 +23,33 @@ export default {
         this.$refs.box.height = this.canvasBind.height;
         this.$refs.box.width = this.canvasBind.width;
     },
+    methods: {
+        gotCanvas(canvas) {
+            this.canvas = canvas;
+        },
+        saveImage() {
+            this.href = this.canvas.toDataURL({format: 'png'});
+        }
+    },
+    computed: {
+        getHref() {
+            if (this.canvas == null) return "";
+            return this.canvas.toDataURL({format: 'png'});
+        },
+    }
 }
 </script>
 
 <template>
-<div style="display: flex; align-items: center; justify-content: center;">
+<div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
   <div ref="box" class="box main-box">
-    <CanvasCom v-if="canvasBind != null" :images="images" :canvas-bind="canvasBind"></CanvasCom>
+    <CanvasCom v-if="canvasBind != null" :images="images" :canvas-bind="canvasBind" @canvas="(canvas) => gotCanvas(canvas)"></CanvasCom>
   </div>
+  <a class="button is-full-width is-rounded is-large" 
+    @click="saveImage" :href="href" download="canvas.png" 
+    style="margin-bottom: 0.5rem; width: 60%;"> 
+        <h1 class="primary-text-color is-family-primary">Download</h1>
+    </a>
 </div>
 </template>
 
@@ -36,5 +57,6 @@ export default {
 .main-box {
     height: 90%;
     width: 90%;
+    margin-top: 10px;
 }
 </style>

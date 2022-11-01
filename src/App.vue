@@ -44,4 +44,8 @@ export default {
     opacity:0;
     transform: translateX(-30%);
 }
+
+.primary-text-color {
+    color: rgb(122, 56, 56);
+}
 </style>

@@ -38,10 +38,6 @@ export default {
     margin-left: 10px;
 }
 
-.primary-text-color {
-    color: rgb(122, 56, 56);
-}
-
 .box-button {
     margin: 10px 0 0 0;
     display: block;
