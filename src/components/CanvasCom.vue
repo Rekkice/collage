@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             fabricCanvas: null,
-            drawnObjects: [],
+
         }
     },
     props: {
@@ -21,20 +21,21 @@ export default {
         });
         this.$emit("canvas", canvas);
         this.fabricCanvas = canvas;
+        let maxWidth = this.canvasBind.width;
+        let maxHeight = this.canvasBind.height;
         for (let i = 0; i < this.images.length; i++) {
             let url = URL.createObjectURL(this.images[i]);
             fabric.Image.fromURL(url, function(oImg) {
                 oImg.set({
-                    left: 10 + 300 * i,
-                    top: 100,
+                    left: 10 + ((200 * i) % maxWidth),
+                    top: (200 * Math.floor((200 * i) / maxWidth)) % (maxHeight - 100),
                     borderColor: "rgb(245, 134, 134)",
                     cornerColor: "rgb(122, 56, 56)",
                     stroke: 'rgb(245, 134, 134)',
                     strokeWidth: 10,
                     strokeUniform: true,
                 });
-                oImg.scaleToWidth(300, false);
-                oImg.lockRotation = true;
+                oImg.scaleToWidth(200, false);
                 oImg.setControlsVisibility({ mtr: false, ml: false , mr: false, mt: false, mb: false});
                 canvas.add(oImg);
             });
