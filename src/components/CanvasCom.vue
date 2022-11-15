@@ -50,10 +50,13 @@ export default {
 </script>
 
 <template>
-<canvas id="canvas" v-bind="canvasBind" />
+<canvas 
+    id="canvas" 
+    v-bind="canvasBind" 
+/>
 </template>
 
-<style>
+<style scoped>
 #canvas {
     display:block;
     border: 6px double rgb(245, 134, 134);

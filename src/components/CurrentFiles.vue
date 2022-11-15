@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .delete {
     position: absolute;
     top: 10px;
@@ -24,7 +24,7 @@ export default {
 
 .image-name {
     word-break: break-all;
-    margin: -10px 0 -20px 0;
+    margin: -20px 0 -20px 0;
     color: rgb(252, 224, 224);
 }
 
@@ -40,24 +40,62 @@ export default {
   transform: translateX(30px);
 }
 .current-files {
-    /* padding-left: 5px; */
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.panel-heading {
+    margin: -10px -10px 5px -10px;
+}
+
+.notification {
+    margin: -5px 0px -5px 0px; 
+    max-height: 10%; 
+    width: 100%;
+}
+
+img {
+    margin: -5px 0 -22px 0;
 }
 </style>
 
 <template>
     <section class="panel current-files is-primary">
-        <h1 class="panel-heading is-size-3 has-text-centered" style="margin: -10px -10px 5px -10px;">Current files</h1>
+        <h1 
+            class="panel-heading is-size-3 has-text-centered"
+        >
+        Current files
+        </h1>
 
-        <transition-group name="list" tag="p">
-        <a v-for="fileImage in currentFiles" class="panel-block" :key="fileImage">
-            <div class="notification is-primary" style="margin: -5px 0 -5px 0; max-height: 10%; width: 100%;">
-                <button class="delete" @click="deleteButton(fileImage)"></button>
-                <h1 class="image-name is-family-primary" style="margin: -20px 0 -20px 0;">
+        <transition-group 
+            name="list" 
+            tag="p"
+        >
+        <a 
+            v-for="fileImage in currentFiles" 
+            class="panel-block" 
+            :key="fileImage"
+        >
+            <div 
+                class="notification is-primary"
+            >
+                <button 
+                    class="delete" 
+                    @click="deleteButton(fileImage)"
+                ></button>
+
+                <h1 
+                    class="image-name is-family-primary"
+                >
                     {{fileImage.name}}
                 </h1><br>
-                <img :src="getUrl(fileImage)" width="50" height="50" style="margin: -5px 0 -20px 0;">
+
+                <img 
+                    :src="getUrl(fileImage)" 
+                    width="50" 
+                    height="50"
+                >
+
             </div>
         </a>
         </transition-group>

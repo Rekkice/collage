@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .column {
     height: 85%;
     margin-left: 10px;
@@ -44,14 +44,23 @@ export default {
     width: 90%;
 }
 
+.columns {
+    margin: 0 auto;
+    width: 90%;
+}
+
 </style>
 
 <template>
 
-<div class="columns is-vcentered is-centered" style="margin: 0 auto; width: 90%;">
+<div class="columns is-vcentered is-centered">
 
-    <DropZone class="column is-three-quarters is-flex is-flex-direction-column is-justify-content-space-between" 
-        @file-dropped="(files) => gotFiles(files)" style="margin-bottom: 0;">
+    <DropZone class="column 
+            is-three-quarters 
+            is-flex is-flex-direction-column 
+            is-justify-content-space-between"
+        @file-dropped="(files) => gotFiles(files)" 
+        style="margin-bottom: 0;">
 
         <router-link
         images="droppedFiles"
@@ -59,14 +68,26 @@ export default {
         to="/edit"
         v-slot="{href, navigate}"
         >
-            <button :href="href" @click="navigate" class='button is-full-width is-rounded' style="width: 100%" :disabled="buttonIsDisabled">
-                <p class="primary-text-color has-text-weight-semibold">Next</p>
+            <button 
+                :href="href" 
+                @click="navigate" 
+                class='button is-full-width is-rounded' 
+                style="width: 100%" 
+                :disabled="buttonIsDisabled"
+            >
+                <p class="primary-text-color has-text-weight-semibold">
+                    Next
+                </p>
             </button>
         </router-link>
 
     </DropZone>
 
-    <CurrentFiles class="column is-one-quarter" :currentFiles="droppedFiles" @delete-button="(image) => deleteImage(image)"/>
+    <CurrentFiles 
+        class="column is-one-quarter" 
+        :currentFiles="droppedFiles" 
+        @delete-button="(image) => deleteImage(image)"
+    />
     
 </div>
 

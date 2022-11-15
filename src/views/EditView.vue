@@ -41,22 +41,50 @@ export default {
 </script>
 
 <template>
-<div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-  <div ref="box" class="box main-box">
-    <CanvasCom v-if="canvasBind != null" :images="images" :canvas-bind="canvasBind" @canvas="(canvas) => gotCanvas(canvas)"></CanvasCom>
-  </div>
-  <a class="button is-full-width is-rounded is-large" 
-    @click="saveImage" :href="href" download="canvas.png" 
-    style="margin-bottom: 0.5rem; width: 60%;"> 
-        <h1 class="primary-text-color is-family-primary">Download</h1>
+<div class="main-div">
+    <div 
+        ref="box" 
+        class="box main-box"
+    >
+    <CanvasCom 
+        v-if="canvasBind != null" 
+        :images="images" 
+        :canvas-bind="canvasBind" 
+        @canvas="(canvas) => gotCanvas(canvas)"
+    >
+    </CanvasCom>
+    </div>
+    <a class="button 
+            is-full-width 
+            is-rounded 
+            is-large"
+        @click="saveImage" 
+        :href="href" 
+        download="canvas.png" 
+    > 
+        <h1 class="primary-text-color is-family-primary">
+            Download
+        </h1>
     </a>
 </div>
 </template>
 
-<style>
+<style scoped>
 .main-box {
     height: 90%;
     width: 90%;
     margin-top: 10px;
+}
+
+.main-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.button {
+    margin-bottom: 1.5rem;
+    width: 60%;
 }
 </style>

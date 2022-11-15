@@ -15,8 +15,15 @@ export default {
 </script>
 
 <template>
-<RouterView :images="images" @image-change="(images) => updateImages(images)" v-slot="{Component}" id="router-view">
-    <transition name="slide" mode="out-in">
+<RouterView 
+    :images="images" 
+    @image-change="(images) => updateImages(images)" 
+    v-slot="{Component}" id="router-view"
+>
+    <transition 
+        name="slide" 
+        mode="out-in"
+    >
         <component :is="Component" />
     </transition>
 </RouterView>
@@ -26,7 +33,6 @@ export default {
 
 #router-view {
     height: 100%;
-    width: 100%;
     top: 0px;
     left: 0px;
 }
